@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Results — NikoSystems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red-deep: #1a0000;
+    --red-mid: #7f1d1d;
+    --red-bright: #dc2626;
+    --red-light: #f87171;
+    --red-pale: #2a0a0a;
+    --gray-900: #111111;
+    --gray-500: #6b6b6b;
+    --gray-100: #1e1e1e;
+    --bg: #0e0e0e;
+    --bg-card: #161616;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e5e5e5; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(14,14,14,0.95); backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(220,38,38,0.15);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.4rem; color: white; letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo span { color: var(--red-bright); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.88rem; font-weight: 500; color: #888; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--red-light); }
+  .nav-cta { background: var(--red-bright) !important; color: white !important; padding: 0.55rem 1.3rem !important; border-radius: 100px; font-weight: 600 !important; }
+
+  /* HERO */
+  .results-hero {
+    background: #080808;
+    padding: 140px 8% 80px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .results-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(220,38,38,0.12) 0%, transparent 70%); }
+  .results-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; }
+  .results-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.25); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.78rem; font-weight: 600; color: var(--red-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+  .results-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -0.03em; color: white; line-height: 1.05; margin-bottom: 1.2rem; }
+  .results-hero h1 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  .results-hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 520px; margin-bottom: 2rem; }
+  .hero-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .hero-stat-num { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 900; color: white; line-height: 1; }
+  .hero-stat-label { font-size: 0.82rem; color: #555; margin-top: 0.2rem; }
+
+  /* FILTER */
+  .filter-bar { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; padding: 0 8%; display: flex; gap: 0.5rem; overflow-x: auto; }
+  .filter-btn { padding: 1rem 1.4rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; color: #555; background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+  .filter-btn:hover { color: var(--red-light); }
+  .filter-btn.active { color: var(--red-bright); border-bottom-color: var(--red-bright); font-weight: 600; }
+
+  /* RESULTS */
+  .results-section { padding: 80px 8%; }
+  .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+
+  .result-card { background: var(--bg-card); border-radius: 24px; overflow: hidden; border: 1px solid #1e1e1e; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; opacity: 0; transform: translateY(30px); }
+  .result-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s, box-shadow 0.25s; }
+  .result-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(220,38,38,0.1); border-color: rgba(220,38,38,0.2); }
+
+  .result-images { display: grid; grid-template-columns: 1fr 1fr; height: 240px; position: relative; }
+  .result-img-slot { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .result-img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-placeholder { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #111 100%); border: 2px dashed rgba(220,38,38,0.2); }
+  .img-placeholder-icon { font-size: 2rem; opacity: 0.3; }
+  .img-placeholder-text { font-size: 0.72rem; font-weight: 600; color: var(--red-bright); opacity: 0.5; text-transform: uppercase; letter-spacing: 0.06em; text-align: center; padding: 0 0.5rem; }
+  .result-img-divider { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #0e0e0e; transform: translateX(-50%); z-index: 2; }
+  .result-img-labels { position: absolute; bottom: 0; left: 0; right: 0; display: flex; z-index: 3; }
+  .result-img-label { flex: 1; text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.35rem; }
+  .label-before { background: rgba(0,0,0,0.7); color: #888; }
+  .label-after { background: rgba(220,38,38,0.85); color: white; }
+
+  .result-body { padding: 1.8rem 2rem; }
+  .result-industry { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red-bright); background: rgba(220,38,38,0.1); padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 0.8rem; }
+  .result-name { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
+  .result-location { font-size: 0.82rem; color: #555; margin-bottom: 1.4rem; }
+  .result-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+  .r-metric { text-align: center; padding: 0.8rem 0.5rem; background: #111; border-radius: 12px; border: 1px solid #1e1e1e; }
+  .r-metric-val { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: white; line-height: 1; }
+  .r-metric-val.positive { color: #4ade80; }
+  .r-metric-label { font-size: 0.68rem; color: #555; margin-top: 0.2rem; }
+  .result-quote { font-size: 0.88rem; color: #777; line-height: 1.6; font-style: italic; padding: 1rem 1.2rem; background: rgba(220,38,38,0.06); border-left: 3px solid var(--red-bright); border-radius: 0 8px 8px 0; }
+  .result-quote-author { font-size: 0.78rem; font-weight: 600; color: var(--red-light); font-style: normal; margin-top: 0.4rem; display: block; }
+
+  /* CTA STRIP */
+  .cta-strip { background: #080808; padding: 80px 8%; text-align: center; position: relative; overflow: hidden; border-top: 1px solid #1a1a1a; }
+  .cta-strip::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(220,38,38,0.1) 0%, transparent 70%); }
+  .cta-strip-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+  .cta-strip h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: white; margin-bottom: 1rem; letter-spacing: -0.03em; }
+  .cta-strip h2 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  .cta-strip p { font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem; }
+  .cta-strip-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-red { background: var(--red-bright); color: white; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(220,38,38,0.35); }
+  .btn-red:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(220,38,38,0.5); }
+  .btn-ghost-dark { background: transparent; color: #ccc; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 2px solid #2a2a2a; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-ghost-dark:hover { border-color: var(--red-bright); color: var(--red-light); transform: translateY(-2px); }
+
+  footer { background: #080808; color: white; padding: 40px 8%; border-top: 1px solid #1a1a1a; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.82rem; color: #444; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.85rem; color: #555; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+
+  @media (max-width: 900px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="niko-index.html" class="nav-logo">Niko<span>Systems</span></a>
+  <ul class="nav-links">
+    <li><a href="niko-results.html" class="active">Before / After</a></li>
+    <li><a href="niko-index.html#process">Process</a></li>
+    <li><a href="niko-index.html#faq">FAQ</a></li>
+    <li><a href="niko-index.html#pricing">Pricing</a></li>
+    <li><a href="tel:+10000000000" class="nav-cta">000-000-0000</a></li>
+  </ul>
+</nav>
+
+<div class="results-hero">
+  <div class="results-hero-grid"></div>
+  <div class="results-hero-inner">
+    <div class="section-tag">📈 Real Client Results</div>
+    <h1>The <em>Proof</em> Is in the Numbers.</h1>
+    <p>We don't make promises we can't keep. Here are real results from real local businesses who went from invisible to #1 on Google Maps.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">✓</div>
+        <div class="hero-stat-label">Satisfied Clients</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">90</div>
+        <div class="hero-stat-label">Days to Top 3, Guaranteed</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">3x</div>
+        <div class="hero-stat-label">Avg. Lead Increase</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+  <button class="filter-btn" onclick="filterCards('hvac', this)">HVAC</button>
+  <button class="filter-btn" onclick="filterCards('esthetician', this)">Esthetician</button>
+</div>
+
+<div class="results-section">
+  <div class="results-grid" id="resultsGrid">
+
+    <div class="result-card" data-industry="hvac">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-hvac-before.jpg" alt="Before - HVAC"> -->
+          <div class="img-placeholder"><div class="img-placeholder-icon">🖼️</div><div class="img-placeholder-text">Replace with<br>Before Screenshot</div></div>
+        </div>
+        <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-hvac-after.jpg" alt="After - HVAC"> -->
+          <div class="img-placeholder"><div class="img-placeholder-icon">🖼️</div><div class="img-placeholder-text">Replace with<br>After Screenshot</div></div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">HVAC</span>
+        <div class="result-name">Local HVAC Company</div>
+        <div class="result-location">📍 Your City, Your State</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+700%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">580</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">45</div><div class="r-metric-label">Leads/Mo</div></div>
+        </div>
+        <div class="result-quote">
+          "We were buried on Google. Within 90 days NikoSystems had us at the top and the phone hasn't stopped since."
+          <span class="result-quote-author">— HVAC Business Owner</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-card" data-industry="esthetician">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-esthet-before.jpg" alt="Before - Esthetician"> -->
+          <div class="img-placeholder"><div class="img-placeholder-icon">🖼️</div><div class="img-placeholder-text">Replace with<br>Before Screenshot</div></div>
+        </div>
+        <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-esthet-after.jpg" alt="After - Esthetician"> -->
+          <div class="img-placeholder"><div class="img-placeholder-icon">🖼️</div><div class="img-placeholder-text">Replace with<br>After Screenshot</div></div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Esthetician</span>
+        <div class="result-name">Local Esthetics Studio</div>
+        <div class="result-location">📍 Your City, Your State</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+540%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">390</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+80%</div><div class="r-metric-label">Bookings</div></div>
+        </div>
+        <div class="result-quote">
+          "I went from barely getting walk-ins to being booked out 3 weeks in advance. Total game changer for my studio."
+          <span class="result-quote-author">— Esthetics Studio Owner</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-strip">
+  <div class="cta-strip-inner">
+    <h2>Ready to Be Our <em>Next</em> Success Story?</h2>
+    <p>Join satisfied local businesses dominating their markets on Google Maps. Your competitors are already ranking — don't let them take every lead.</p>
+    <div class="cta-strip-btns">
+      <a href="niko-get-started.html" class="btn-red">Get Started Free →</a>
+      <a href="tel:+10000000000" class="btn-ghost-dark">Call 000-000-0000</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 NikoSystems. All rights reserved.</div>
+    <div class="footer-links"><a href="niko-index.html">Home</a><a href="niko-index.html#pricing">Pricing</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script>
+  function filterCards(industry, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.result-card').forEach(card => {
+      card.style.display = (industry === 'all' || card.dataset.industry === industry) ? '' : 'none';
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.result-card').forEach((el, i) => { el.dataset.delay = i * 150; observer.observe(el); });
+</script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NikoSystems — Local SEO Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red-deep: #1a0000;
+    --red-dark: #2d0a0a;
+    --red-mid: #7f1d1d;
+    --red-bright: #dc2626;
+    --red-light: #f87171;
+    --red-pale: #fef2f2;
+    --gray-900: #111111;
+    --gray-700: #2a2a2a;
+    --gray-600: #3d3d3d;
+    --gray-500: #6b6b6b;
+    --gray-300: #d4d4d4;
+    --gray-100: #f0f0f0;
+    --gray-50: #f7f7f7;
+    --white: #ffffff;
+    --bg: #0e0e0e;
+    --bg-card: #161616;
+    --bg-section: #111111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e5e5e5; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(14,14,14,0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(220,38,38,0.15);
+    animation: slideDown 0.6s ease both;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity:0 } to { transform: translateY(0); opacity:1 } }
+
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.4rem; color: white; letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo span { color: var(--red-bright); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.88rem; font-weight: 500; color: #999; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--red-light); }
+  .nav-cta { background: var(--red-bright) !important; color: white !important; padding: 0.55rem 1.3rem !important; border-radius: 100px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s, transform 0.15s !important; }
+  .nav-cta:hover { background: var(--red-mid) !important; transform: scale(1.04) !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 4rem; padding: 120px 8% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(220,38,38,0.1) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 15% 80%, rgba(220,38,38,0.06) 0%, transparent 60%);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(220,38,38,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(220,38,38,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(220,38,38,0.3); border-radius: 100px;
+    padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--red-light);
+    margin-bottom: 1.8rem; animation: fadeUp 0.7s 0.2s both;
+  }
+  .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+  h1 { font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: white; margin-bottom: 1.4rem; animation: fadeUp 0.7s 0.35s both; }
+  h1 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  h1 .highlight { position: relative; display: inline-block; }
+  h1 .highlight::after { content: ''; position: absolute; bottom: 2px; left: 0; right: 0; height: 4px; background: var(--red-bright); border-radius: 2px; animation: expandWidth 0.8s 1s both; }
+  @keyframes expandWidth { from { transform: scaleX(0); transform-origin: left } to { transform: scaleX(1) } }
+
+  .hero-sub { font-size: 1.05rem; line-height: 1.7; color: #888; max-width: 440px; margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.5s both; }
+  .hero-sub strong { color: #e5e5e5; font-weight: 600; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.65s both; }
+
+  .btn-primary { background: var(--red-bright); color: white; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; box-shadow: 0 4px 20px rgba(220,38,38,0.4); }
+  .btn-primary:hover { background: var(--red-mid); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(220,38,38,0.5); }
+  .btn-ghost { background: transparent; color: white; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 2px solid rgba(255,255,255,0.15); transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-ghost:hover { border-color: var(--red-bright); color: var(--red-light); transform: translateY(-2px); }
+
+  .hero-right { position: relative; z-index: 1; animation: fadeUp 0.8s 0.4s both; }
+  .hero-card {
+    background: var(--bg-card); border-radius: 24px; padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+    border: 1px solid rgba(220,38,38,0.15); position: relative; overflow: hidden;
+  }
+  .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red-bright), var(--red-light)); }
+  .rank-display { text-align: center; margin-bottom: 1.5rem; }
+  .rank-label { font-size: 0.8rem; font-weight: 500; color: #666; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .rank-number { font-family: 'Fraunces', serif; font-size: 5rem; font-weight: 900; color: var(--red-bright); line-height: 1; }
+  .rank-stars { color: #fbbf24; font-size: 1.3rem; letter-spacing: 0.1em; }
+  .rank-bars { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .bar-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.82rem; }
+  .bar-label { width: 80px; color: #666; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 8px; background: #222; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--red-bright); transform: scaleX(0); transform-origin: left; transition: transform 1.5s cubic-bezier(0.16,1,0.3,1); }
+  .bar-fill.animate { transform: scaleX(1); }
+  .bar-val { font-weight: 600; color: white; width: 36px; text-align: right; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; padding: 0 8% 60px; }
+  .stat-card { background: var(--bg-card); border-radius: 16px; padding: 1.6rem 2rem; display: flex; align-items: center; gap: 1rem; border: 1px solid #1e1e1e; box-shadow: 0 2px 12px rgba(0,0,0,0.3); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; opacity: 0; transform: translateY(20px); }
+  .stat-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s, transform 0.5s, box-shadow 0.25s, border-color 0.25s; }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(220,38,38,0.15); border-color: rgba(220,38,38,0.2); }
+  .stat-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(220,38,38,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .stat-text { font-weight: 600; font-size: 0.95rem; color: #ccc; }
+
+  /* SECTIONS */
+  section { padding: 100px 8%; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.2); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.78rem; font-weight: 600; color: var(--red-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+
+  h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; color: white; line-height: 1.1; margin-bottom: 1rem; }
+  h2 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  .section-sub { font-size: 1rem; color: #777; line-height: 1.7; max-width: 560px; }
+
+  /* ADVANTAGE */
+  #advantage { background: var(--bg-section); }
+  .advantage-header { text-align: center; margin-bottom: 4rem; }
+  .advantage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .adv-card { padding: 2.5rem 2rem; border: 1px solid #1e1e1e; border-radius: 20px; position: relative; overflow: hidden; background: var(--bg-card); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; opacity: 0; transform: translateY(30px); }
+  .adv-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s, box-shadow 0.25s; }
+  .adv-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.2); }
+  .adv-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red-bright), var(--red-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .adv-card:hover::before { transform: scaleX(1); }
+  .adv-num { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900; color: #1e1e1e; line-height: 1; margin-bottom: 0.5rem; }
+  .adv-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .adv-title { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 0.75rem; }
+  .adv-desc { font-size: 0.9rem; color: #777; line-height: 1.7; }
+
+  /* BEFORE/AFTER */
+  #beforeafter { background: #0a0a0a; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+  .ba-header { margin-bottom: 3rem; }
+  .ba-see-results { margin-top: 1.5rem; }
+  .btn-results { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(220,38,38,0.12); color: var(--red-light); padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 1px solid rgba(220,38,38,0.25); transition: background 0.2s, transform 0.2s; }
+  .btn-results:hover { background: rgba(220,38,38,0.2); transform: translateY(-2px); }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; }
+  .ba-card { border-radius: 20px; padding: 2.5rem; opacity: 0; transform: translateY(20px); }
+  .ba-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s; }
+  .ba-before { background: #161616; border: 1px solid #252525; }
+  .ba-after { background: var(--red-bright); box-shadow: 0 20px 60px rgba(220,38,38,0.35); }
+  .ba-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; opacity: 0.7; }
+  .ba-company { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .ba-addr { font-size: 0.82rem; opacity: 0.6; margin-bottom: 2rem; }
+  .ba-metrics { display: flex; flex-direction: column; gap: 1rem; }
+  .ba-metric { display: flex; justify-content: space-between; align-items: center; }
+  .ba-metric-label { font-size: 0.85rem; opacity: 0.7; }
+  .ba-metric-val { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; }
+
+  /* PROCESS */
+  #process { background: var(--bg); }
+  .process-header { text-align: center; margin-bottom: 4rem; }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }
+  .process-grid::before { content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, transparent, var(--red-bright), transparent); opacity: 0.3; }
+  .step-card { background: var(--bg-card); border-radius: 20px; padding: 2rem 1.8rem; border: 1px solid #1e1e1e; text-align: center; position: relative; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; opacity: 0; transform: translateY(30px); }
+  .step-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s, transform 0.5s, box-shadow 0.25s; }
+  .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.2); }
+  .step-num { font-family: 'Fraunces', serif; font-size: 0.75rem; font-weight: 700; color: var(--red-bright); background: rgba(220,38,38,0.1); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; }
+  .step-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 0.6rem; }
+  .step-desc { font-size: 0.87rem; color: #777; line-height: 1.6; }
+
+  /* FAQ */
+  #faq { background: var(--bg-section); }
+  .faq-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .faq-item { border: 1px solid #1e1e1e; border-radius: 14px; overflow: hidden; margin-bottom: 0.6rem; background: var(--bg-card); transition: box-shadow 0.2s, border-color 0.2s; }
+  .faq-item:hover { box-shadow: 0 4px 20px rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.2); }
+  .faq-q { padding: 1.2rem 1.5rem; font-weight: 600; font-size: 0.95rem; color: #ddd; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq-q::after { content: '+'; font-size: 1.3rem; font-weight: 300; color: var(--red-bright); transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; font-size: 0.88rem; color: #777; line-height: 1.7; padding: 0 1.5rem; transition: max-height 0.4s ease, padding 0.4s; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 1.5rem 1.2rem; }
+
+  /* PRICING */
+  #pricing { background: var(--bg); }
+  .pricing-header { text-align: center; margin-bottom: 4rem; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .price-card { background: var(--bg-card); border-radius: 24px; padding: 2.5rem 2rem; border: 1px solid #1e1e1e; position: relative; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; opacity: 0; transform: translateY(30px); }
+  .price-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s, box-shadow 0.25s; }
+  .price-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.2); }
+  .price-card.featured { background: var(--red-bright); border-color: var(--red-bright); box-shadow: 0 20px 60px rgba(220,38,38,0.3); }
+  .featured-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: white; color: var(--red-bright); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 1rem; border-radius: 100px; white-space: nowrap; }
+  .plan-name { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red-bright); margin-bottom: 0.5rem; }
+  .price-card.featured .plan-name { color: rgba(255,255,255,0.85); }
+  .plan-price { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 900; color: white; line-height: 1; margin-bottom: 0.3rem; }
+  .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+  .plan-period { font-size: 0.82rem; color: #666; margin-bottom: 0.8rem; }
+  .price-card.featured .plan-period { color: rgba(255,255,255,0.6); }
+  .plan-commitment { font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #1e1e1e; }
+  .price-card.featured .plan-commitment { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+  .plan-guarantee { font-size: 0.88rem; font-weight: 600; color: #ccc; margin-bottom: 1.5rem; padding: 0.8rem 1rem; background: #111; border-radius: 10px; }
+  .price-card.featured .plan-guarantee { background: rgba(0,0,0,0.2); color: white; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; }
+  .plan-features li { font-size: 0.87rem; color: #999; display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.4; }
+  .price-card.featured .plan-features li { color: rgba(255,255,255,0.85); }
+  .plan-features li::before { content: '✓'; color: var(--red-bright); font-weight: 700; flex-shrink: 0; }
+  .price-card.featured .plan-features li::before { color: white; }
+  .plan-cta { display: block; text-align: center; padding: 0.9rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+  .plan-cta-primary { background: var(--red-bright); color: white; box-shadow: 0 4px 16px rgba(220,38,38,0.4); }
+  .plan-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,38,38,0.5); }
+  .plan-cta-outline { background: transparent; color: #ccc; border: 2px solid #2a2a2a; }
+  .plan-cta-outline:hover { border-color: var(--red-bright); color: var(--red-light); transform: translateY(-2px); }
+  .plan-cta-white { background: white; color: var(--red-bright); font-weight: 700; }
+  .plan-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+  /* FOOTER */
+  footer { background: #080808; color: white; padding: 60px 8% 40px; border-top: 1px solid #1a1a1a; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem; }
+  .footer-brand { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; color: white; margin-bottom: 0.5rem; }
+  .footer-brand span { color: var(--red-bright); }
+  .footer-tagline { font-size: 0.9rem; color: #555; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.85rem; color: #555; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom { border-top: 1px solid #1a1a1a; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.82rem; color: #444; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
+
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; padding: 100px 6% 60px; }
+    .hero-right { display: none; }
+    .stats-row { grid-template-columns: 1fr; padding: 0 6% 60px; }
+    .advantage-grid { grid-template-columns: 1fr; }
+    .ba-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .faq-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .nav-links { display: none; }
+    section { padding: 70px 6%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="niko-index.html" class="nav-logo">Niko<span>Systems</span></a>
+  <ul class="nav-links">
+    <li><a href="niko-results.html">Before / After</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="tel:+10000000000" class="nav-cta">000-000-0000</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-left">
+    <div class="hero-badge">📍 Your City, Your State</div>
+    <h1><span class="highlight">Top 3</span> on Google<br>within 90 Days,<br><em>Guaranteed.</em></h1>
+    <p class="hero-sub">
+      <strong>75% of all search requests go to the top 3 results on Google Maps.</strong><br>
+      If you're not there, you're invisible — and your competitors are eating your lunch.
+    </p>
+    <div class="hero-ctas">
+      <a href="niko-get-started.html" class="btn-primary">Get Started Free →</a>
+      <a href="niko-results.html" class="btn-ghost">See Results</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="rank-display">
+        <div class="rank-label">Current Google Ranking</div>
+        <div class="rank-number">#1</div>
+        <div class="rank-stars">★★★★★</div>
+      </div>
+      <div class="rank-bars">
+        <div class="bar-row"><span class="bar-label">Visibility</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span class="bar-val">92%</span></div>
+        <div class="bar-row"><span class="bar-label">Clicks/Mo</span><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><span class="bar-val">840</span></div>
+        <div class="bar-row"><span class="bar-label">Leads</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span class="bar-val">62</span></div>
+        <div class="bar-row"><span class="bar-label">Revenue</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="bar-val">↑3x</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-text">Satisfied Clients</div></div>
+  <div class="stat-card"><div class="stat-icon">📈</div><div class="stat-text">Years Worth of Experience</div></div>
+  <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-text">Lightning Fast Results</div></div>
+</div>
+
+<section id="advantage">
+  <div class="advantage-header">
+    <div class="section-tag">✓ The NikoSystems Edge</div>
+    <h2><em>But,</em> Is This Even Worth It?</h2>
+    <p class="section-sub" style="margin:0 auto">Let's be real. Here's exactly why local SEO is the single highest-ROI investment your business can make right now.</p>
+  </div>
+  <div class="advantage-grid">
+    <div class="adv-card"><div class="adv-num">01</div><div class="adv-icon">👁️</div><div class="adv-title">Visibility</div><p class="adv-desc">75% of all leads searching for your services click the top 3 results. If you're not there, your competitors are taking every single one of those calls.</p></div>
+    <div class="adv-card"><div class="adv-num">02</div><div class="adv-icon">💰</div><div class="adv-title">No Ad Budget</div><p class="adv-desc">Zero pay-per-click. Zero ad spend. Unlike Google Ads or Meta Ads, local SEO drives organic traffic that doesn't disappear the moment you stop paying.</p></div>
+    <div class="adv-card"><div class="adv-num">03</div><div class="adv-icon">🔒</div><div class="adv-title">Long-Term Strategy</div><p class="adv-desc">Once you're in the top 3, you typically stay there for years — with minimal maintenance. It's a one-time investment that compounds over time.</p></div>
+  </div>
+</section>
+
+<section id="beforeafter">
+  <div class="ba-header">
+    <div class="section-tag">Before / After</div>
+    <h2>The <em>Difference</em> We Make</h2>
+    <p class="section-sub">Real results from real businesses. This is what happens when you go from invisible to #1 on Google Maps.</p>
+    <div class="ba-see-results">
+      <a href="niko-results.html" class="btn-results">View All Client Results →</a>
+    </div>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-card ba-before">
+      <div class="ba-label">❌ Before NikoSystems</div>
+      <div class="ba-company">Your Business Name</div>
+      <div class="ba-addr">Your City, Your State</div>
+      <div class="ba-metrics">
+        <div class="ba-metric"><span class="ba-metric-label">Average Ranking</span><span class="ba-metric-val" style="color:#ef4444">#86</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Marketshare</span><span class="ba-metric-val">1%</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Clicks / Month</span><span class="ba-metric-val">5</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Leads / Month</span><span class="ba-metric-val">1–2</span></div>
+      </div>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="ba-label">✅ After NikoSystems</div>
+      <div class="ba-company">Your Business Name</div>
+      <div class="ba-addr">Your City, Your State</div>
+      <div class="ba-metrics">
+        <div class="ba-metric"><span class="ba-metric-label">Average Ranking</span><span class="ba-metric-val" style="color:#4ade80">#1</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Marketshare</span><span class="ba-metric-val">75%+</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Clicks / Month</span><span class="ba-metric-val">840</span></div>
+        <div class="ba-metric"><span class="ba-metric-label">Leads / Month</span><span class="ba-metric-val">40–60</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="process-header">
+    <div class="section-tag">How It Works</div>
+    <h2>It's Pretty <em>Simple.</em></h2>
+    <p class="section-sub" style="margin:0 auto">Four straightforward steps between you and dominating your local market.</p>
+  </div>
+  <div class="process-grid">
+    <div class="step-card"><div class="step-num">01</div><div class="step-icon">🔍</div><div class="step-title">Free Analysis</div><p class="step-desc">We audit your Google Business Profile, analyze your local competitors, and identify exactly what's holding you back from the top.</p></div>
+    <div class="step-card"><div class="step-num">02</div><div class="step-icon">🚀</div><div class="step-title">Onboarding</div><p class="step-desc">We send you a simple guide to securely grant us access to your profile. Takes about 10 minutes — we handle the rest.</p></div>
+    <div class="step-card"><div class="step-num">03</div><div class="step-icon">⚙️</div><div class="step-title">Execution</div><p class="step-desc">We implement our proven framework — optimized profile, strategic citations, and quality backlinks — pushing you to the top 3.</p></div>
+    <div class="step-card"><div class="step-num">04</div><div class="step-icon">📊</div><div class="step-title">Track & Scale</div><p class="step-desc">Bi-weekly reports track rankings, visibility, and leads. We double down on what works and refine everything else.</p></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="faq-layout">
+    <div>
+      <div class="section-tag">FAQ</div>
+      <h2>Frequently Asked <em>Questions</em></h2>
+      <p class="section-sub">Still on the fence? We've answered the most common questions right here.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">What exactly is Local SEO?</div><div class="faq-a">Local SEO is the process of optimizing your business to appear at the top of Google Maps and local search results when people in your area search for your services. It's the most cost-effective way to attract local customers without paying per click.</div></div>
+      <div class="faq-item"><div class="faq-q">How fast will I see results?</div><div class="faq-a">Most clients see measurable improvement within 30–45 days. Our guarantee is Top 3 within 90 days on the Standard plan — and if we don't deliver, you don't pay. Simple as that.</div></div>
+      <div class="faq-item"><div class="faq-q">Do I need a website?</div><div class="faq-a">Not necessarily. While a website helps, we can often achieve top 3 rankings using just your Google Business Profile. We'll tell you during the free analysis whether a site is needed for your specific market.</div></div>
+      <div class="faq-item"><div class="faq-q">What's the money-back guarantee?</div><div class="faq-a">On the Standard and Quarterly plans, if you're not in the Top 3 within 90 days, we keep working for free until you are — or we refund your last month. No fine print, no loopholes.</div></div>
+      <div class="faq-item"><div class="faq-q">How is this different from Google Ads?</div><div class="faq-a">With Google Ads, you pay for every click and the traffic stops when you stop paying. Local SEO builds organic rankings that last years with no per-click costs. Most clients see 5–10x better ROI vs ads.</div></div>
+      <div class="faq-item"><div class="faq-q">What industries do you work with?</div><div class="faq-a">Any local service business — contractors, plumbers, lawyers, dentists, restaurants, gyms, salons, and more. If your customers search locally on Google, we can get you to the top 3.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="pricing-header">
+    <div class="section-tag">Packages</div>
+    <h2>Get More <em>Clients</em></h2>
+    <p class="section-sub" style="margin:0 auto">No hidden fees. No lock-in surprises. Just results — or you don't pay.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Minimum</div>
+      <div class="plan-price"><sup>$</sup>397</div>
+      <div class="plan-period">/ Month</div>
+      <div class="plan-commitment">3-month commitment. Cancellable monthly thereafter.</div>
+      <div class="plan-guarantee">First page on Google within 90 days. No money-back guarantee.</div>
+      <ul class="plan-features">
+        <li>Full Competitor Analysis</li>
+        <li>Updates Every Two Weeks</li>
+        <li>Ranking for Main Search Term</li>
+        <li>Limited Website Optimization</li>
+        <li>High Quality Backlinks</li>
+      </ul>
+      <a href="niko-get-started.html?plan=minimum" class="plan-cta plan-cta-outline">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-badge">⭐ Most Popular</div>
+      <div class="plan-name">Standard</div>
+      <div class="plan-price"><sup>$</sup>497</div>
+      <div class="plan-period">/ Month</div>
+      <div class="plan-commitment">3-month commitment. Cancellable monthly thereafter.</div>
+      <div class="plan-guarantee">🛡️ Top 3 on Google within 90 days. Guaranteed or you don't pay.</div>
+      <ul class="plan-features">
+        <li>Full Competitor Analysis</li>
+        <li>Updates Every Two Weeks</li>
+        <li>Money-Back Guarantee</li>
+        <li>Ranking for Main Search Term</li>
+        <li>Full Website Optimization</li>
+        <li>High Quality Backlinks</li>
+      </ul>
+      <a href="niko-get-started.html?plan=standard" class="plan-cta plan-cta-white">Get Started →</a>
+    </div>
+    <div class="price-card">
+      <div class="featured-badge" style="background:#333;color:#ccc">Save $194</div>
+      <div class="plan-name">Quarterly</div>
+      <div class="plan-price"><sup>$</sup>1,297</div>
+      <div class="plan-period">/ Quarter (3 Months)</div>
+      <div class="plan-commitment">Cancellable every 3 months.</div>
+      <div class="plan-guarantee">🛡️ Top 3 on Google within 90 days. Guaranteed or you don't pay.</div>
+      <ul class="plan-features">
+        <li>Full Competitor Analysis</li>
+        <li>Updates Every Two Weeks</li>
+        <li>Money-Back Guarantee</li>
+        <li>Ranking for Main Search Term</li>
+        <li>Full Website Optimization</li>
+        <li>High Quality Backlinks</li>
+      </ul>
+      <a href="niko-get-started.html?plan=quarterly" class="plan-cta plan-cta-outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Niko<span>Systems</span></div>
+      <div class="footer-tagline">Dominate Your Local Market. Built for local businesses.</div>
+    </div>
+    <div class="footer-links">
+      <a href="niko-results.html">Before / After</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 NikoSystems. All rights reserved.</div>
+    <div class="footer-links"><a href="#">Terms of Service</a><a href="#">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        setTimeout(() => el.classList.add('visible'), el.dataset.delay || 0);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.stat-card, .adv-card, .ba-card, .step-card, .price-card').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 100;
+    observer.observe(el);
+  });
+
+  const heroCard = document.querySelector('.hero-card');
+  if (heroCard) {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 600); }
+    }, { threshold: 0.5 }).observe(heroCard);
+  }
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => { nav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,0.4)' : 'none'; });
+</script>
+</body>
+</html>

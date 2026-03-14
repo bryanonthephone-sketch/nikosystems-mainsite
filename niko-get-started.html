@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — NikoSystems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red-deep: #1a0000;
+    --red-mid: #7f1d1d;
+    --red-bright: #dc2626;
+    --red-light: #f87171;
+    --bg: #0e0e0e;
+    --bg-card: #161616;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e5e5e5; overflow-x: hidden; min-height: 100vh; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(14,14,14,0.95); backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(220,38,38,0.15);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.4rem; color: white; letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo span { color: var(--red-bright); }
+  .nav-back { font-size: 0.88rem; font-weight: 500; color: #666; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--red-light); }
+  .nav-phone { font-size: 0.88rem; font-weight: 600; color: #ccc; text-decoration: none; }
+  .nav-phone:hover { color: var(--red-light); }
+
+  .page-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; padding-top: 72px; }
+
+  /* LEFT */
+  .left-panel { background: #080808; padding: 60px 8% 60px 10%; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; border-right: 1px solid #1a1a1a; }
+  .left-panel::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 60%, rgba(220,38,38,0.1) 0%, transparent 70%); }
+  .left-panel-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 50px 50px; }
+  .left-inner { position: relative; z-index: 1; }
+
+  .left-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.25); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.78rem; font-weight: 600; color: var(--red-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.5rem; }
+
+  .left-panel h1 { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 900; letter-spacing: -0.03em; color: white; line-height: 1.05; margin-bottom: 1.2rem; }
+  .left-panel h1 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  .left-inner > p { font-size: 0.97rem; color: #666; line-height: 1.7; margin-bottom: 2.5rem; }
+
+  .trust-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+  .trust-item { display: flex; align-items: flex-start; gap: 0.8rem; }
+  .trust-check { width: 22px; height: 22px; border-radius: 50%; background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--red-light); flex-shrink: 0; margin-top: 2px; }
+  .trust-text { font-size: 0.9rem; color: #888; line-height: 1.5; }
+  .trust-text strong { color: #ddd; }
+
+  .plan-preview { background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.2); border-radius: 16px; padding: 1.5rem; display: none; }
+  .plan-preview.visible { display: block; }
+  .plan-preview-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red-light); margin-bottom: 0.5rem; }
+  .plan-preview-name { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: white; margin-bottom: 0.3rem; }
+  .plan-preview-price { font-size: 0.9rem; color: #666; }
+
+  .left-social-proof { display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; }
+  .avatar-stack { display: flex; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--red-bright), var(--red-mid)); border: 2px solid #0e0e0e; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; margin-left: -10px; }
+  .avatar:first-child { margin-left: 0; }
+  .social-proof-text { font-size: 0.82rem; color: #555; line-height: 1.4; }
+  .social-proof-text strong { color: #ccc; }
+
+  /* RIGHT */
+  .right-panel { background: var(--bg-card); padding: 60px 10% 60px 8%; display: flex; flex-direction: column; justify-content: center; }
+
+  .right-panel h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; letter-spacing: -0.03em; color: white; margin-bottom: 0.5rem; }
+  .right-panel h2 em { font-style: italic; font-weight: 300; color: var(--red-bright); }
+  .right-panel > p { font-size: 0.92rem; color: #666; line-height: 1.6; margin-bottom: 2rem; }
+
+  .calendly-wrap { border: 2px dashed rgba(220,38,38,0.2); border-radius: 20px; background: rgba(220,38,38,0.04); min-height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+  .calendly-wrap::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(220,38,38,0.05) 0%, transparent 70%); }
+  .calendly-inner { position: relative; z-index: 1; }
+  .calendly-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .calendly-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+  .calendly-desc { font-size: 0.88rem; color: #666; line-height: 1.6; margin-bottom: 1.5rem; max-width: 340px; }
+  .calendly-code { background: #0a0a0a; color: var(--red-light); padding: 1rem 1.5rem; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 0.78rem; text-align: left; margin-bottom: 1rem; width: 100%; max-width: 400px; line-height: 1.6; border: 1px solid #1e1e1e; }
+  .calendly-code .code-comment { color: #333; }
+  .calendly-hint { font-size: 0.78rem; color: #555; }
+  .calendly-hint a { color: var(--red-bright); }
+
+  .or-divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+  .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
+  .or-divider span { font-size: 0.78rem; font-weight: 600; color: #444; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .contact-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-option { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.2rem; border: 1.5px solid #1e1e1e; border-radius: 14px; text-decoration: none; background: #111; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .contact-option:hover { border-color: var(--red-bright); box-shadow: 0 4px 20px rgba(220,38,38,0.1); transform: translateY(-2px); }
+  .contact-option-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .contact-option-label { font-size: 0.72rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.06em; }
+  .contact-option-val { font-size: 0.9rem; font-weight: 600; color: #ddd; }
+
+  .next-steps { margin-top: 2rem; }
+  .next-steps-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #444; margin-bottom: 1rem; }
+  .next-steps-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .next-step { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #666; }
+  .next-step-num { width: 20px; height: 20px; border-radius: 50%; background: rgba(220,38,38,0.1); color: var(--red-bright); font-size: 0.68rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .left-panel { padding: 50px 6%; }
+    .right-panel { padding: 50px 6%; }
+    .contact-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="niko-index.html" class="nav-logo">Niko<span>Systems</span></a>
+  <div style="display:flex;align-items:center;gap:2rem">
+    <a href="niko-index.html" class="nav-back">← Back to Home</a>
+    <a href="tel:+10000000000" class="nav-phone">📞 000-000-0000</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="left-panel">
+    <div class="left-panel-grid"></div>
+    <div class="left-inner">
+      <div class="left-tag">🚀 Free Strategy Call</div>
+      <h1>Let's Get You to <em>Top 3</em> on Google.</h1>
+      <p>Book your free 20-minute strategy call. We'll analyze your current ranking, identify your biggest opportunities, and show you exactly how we get you to the top — no fluff, no pressure.</p>
+
+      <div class="trust-list">
+        <div class="trust-item"><div class="trust-check">✓</div><div class="trust-text"><strong>100% Free Analysis</strong> — we review your Google Business Profile and competitors at no charge.</div></div>
+        <div class="trust-item"><div class="trust-check">✓</div><div class="trust-text"><strong>No Hard Sell</strong> — we show you the opportunity and you decide if it's right for you.</div></div>
+        <div class="trust-item"><div class="trust-check">✓</div><div class="trust-text"><strong>Guaranteed Results</strong> — Top 3 in 90 days on Standard, or you don't pay a cent.</div></div>
+        <div class="trust-item"><div class="trust-check">✓</div><div class="trust-text"><strong>75% of clicks</strong> go to the top 3 results. Right now, your competitors are getting them all.</div></div>
+      </div>
+
+      <div class="plan-preview" id="planPreview">
+        <div class="plan-preview-label">Selected Plan</div>
+        <div class="plan-preview-name" id="planName">Standard</div>
+        <div class="plan-preview-price" id="planPrice">$497 / month — Top 3 Guaranteed</div>
+      </div>
+
+      <div class="left-social-proof">
+        <div class="avatar-stack">
+          <div class="avatar">MR</div>
+          <div class="avatar">JS</div>
+          <div class="avatar">TK</div>
+          <div class="avatar">DL</div>
+        </div>
+        <div class="social-proof-text">
+          <strong>Satisfied clients</strong> already ranking #1.<br>Real results, real businesses.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <h2>Book Your <em>Free</em> Call</h2>
+    <p>Pick a time that works for you. The call takes 20 minutes and you'll leave with a clear picture of exactly what's possible for your business.</p>
+
+    <!-- REPLACE this entire .calendly-wrap block with your Calendly embed:
+         <div class="calendly-inline-widget"
+              data-url="https://calendly.com/YOUR_LINK"
+              style="min-width:320px;height:700px;"></div>
+         <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    -->
+    <div class="calendly-wrap">
+      <div class="calendly-inner">
+        <div class="calendly-icon">📅</div>
+        <div class="calendly-title">Your Calendly Goes Here</div>
+        <div class="calendly-desc">Replace this block with your Calendly inline embed. Here's exactly what to paste:</div>
+        <div class="calendly-code">
+          <span class="code-comment">&lt;!-- Calendly inline widget --&gt;</span><br>
+          &lt;div class="calendly-inline-widget"<br>
+          &nbsp;&nbsp;data-url="https://calendly.com/<strong>YOUR_LINK</strong>"<br>
+          &nbsp;&nbsp;style="min-width:320px;height:700px;"&gt;<br>
+          &lt;/div&gt;<br>
+          &lt;script src="https://assets.calendly.com/<br>
+          &nbsp;&nbsp;assets/external/widget.js" async&gt;&lt;/script&gt;
+        </div>
+        <div class="calendly-hint">Don't have Calendly? <a href="https://calendly.com" target="_blank">Sign up free at calendly.com</a></div>
+      </div>
+    </div>
+
+    <div class="or-divider"><span>Or reach out directly</span></div>
+
+    <div class="contact-options">
+      <a href="tel:+10000000000" class="contact-option">
+        <div class="contact-option-icon">📞</div>
+        <div><div class="contact-option-label">Call Us</div><div class="contact-option-val">000-000-0000</div></div>
+      </a>
+      <a href="mailto:hello@nikosystems.com" class="contact-option">
+        <div class="contact-option-icon">✉️</div>
+        <div><div class="contact-option-label">Email Us</div><div class="contact-option-val">hello@nikosystems.com</div></div>
+      </a>
+    </div>
+
+    <div class="next-steps">
+      <div class="next-steps-title">What happens next</div>
+      <div class="next-steps-list">
+        <div class="next-step"><div class="next-step-num">1</div>Book your free 20-min call using the calendar above.</div>
+        <div class="next-step"><div class="next-step-num">2</div>We analyze your profile & competitors before the call.</div>
+        <div class="next-step"><div class="next-step-num">3</div>On the call, we walk you through your exact opportunity.</div>
+        <div class="next-step"><div class="next-step-num">4</div>If it's a fit, we start within 48 hours. If not, no pressure.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan');
+  const plans = {
+    minimum: { name: 'Minimum Plan', price: '$397 / month — First Page Google' },
+    standard: { name: 'Standard Plan', price: '$497 / month — Top 3 Guaranteed' },
+    quarterly: { name: 'Quarterly Plan', price: '$1,297 / quarter — Top 3 Guaranteed' },
+  };
+  if (plan && plans[plan]) {
+    document.getElementById('planPreview').classList.add('visible');
+    document.getElementById('planName').textContent = plans[plan].name;
+    document.getElementById('planPrice').textContent = plans[plan].price;
+  }
+</script>
+</body>
+</html>
